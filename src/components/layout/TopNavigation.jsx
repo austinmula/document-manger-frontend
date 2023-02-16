@@ -1,16 +1,17 @@
 import { Fragment } from "react";
 import {
   Bars3CenterLeftIcon,
-  PencilIcon,
   ChevronDownIcon,
-  CreditCardIcon,
-  Cog8ToothIcon,
+  ArrowRightOnRectangleIcon,
 } from "@heroicons/react/24/solid";
-import { BellIcon, CheckIcon } from "@heroicons/react/24/outline";
+// import { BellIcon, CheckIcon } from "@heroicons/react/24/outline";
 import { Menu, Transition, Popover } from "@headlessui/react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function TopNavigation({ showSideBar, setShowSideBar }) {
+  const user = useSelector((state) => state.auth);
+  //   console.log(user.user.user.user.name);
   return (
     <div
       className={`fixed w-full h-16 flex justify-between items-center transition-all duration-[400ms] ${
@@ -24,7 +25,7 @@ export default function TopNavigation({ showSideBar, setShowSideBar }) {
         />
       </div>
       <div className="flex items-center pr-4 md:pr-16">
-        <Popover className="relative">
+        {/* <Popover className="relative">
           <Popover.Button className="outline-none mr-5 md:mr-8 cursor-pointer text-gray-700">
             <BellIcon className="h-6 w-6" />
           </Popover.Button>
@@ -102,19 +103,19 @@ export default function TopNavigation({ showSideBar, setShowSideBar }) {
               </div>
             </Popover.Panel>
           </Transition>
-        </Popover>
+        </Popover> */}
         <Menu as="div" className="relative inline-block text-left">
           <div>
-            <Menu.Button className="inline-flex w-full justify-center items-center">
-              <picture>
+            <Menu.Button className="inline-flex gap-1 w-full justify-center items-center">
+              <div className="w-6 h-6 bg-black rounded-full overflow-hidden">
                 <img
-                  src="/man-smiling.jpg"
-                  className="rounded-full h-8 md:mr-4 border-2 border-white shadow-sm"
-                  alt="profile picture"
+                  src="https://images.pexels.com/photos/264905/pexels-photo-264905.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                  className="object-cover"
+                  alt="profile"
                 />
-              </picture>
+              </div>
               <span className="hidden md:block font-medium text-gray-700">
-                Rettson
+                {user.user.user.user.name || "Username"}
               </span>
               <ChevronDownIcon className="ml-2 h-4 w-4 text-gray-700" />
             </Menu.Button>
@@ -133,28 +134,10 @@ export default function TopNavigation({ showSideBar, setShowSideBar }) {
                 <Menu.Item>
                   <Link
                     href="#"
-                    className="flex hover:bg-orange-500 hover:text-white text-gray-700 rounded p-2 text-sm group transition-colors items-center"
+                    className="flex hover:bg-emerald-800 hover:text-white text-gray-700 rounded p-2 text-sm group transition-colors items-center"
                   >
-                    <PencilIcon className="h-4 w-4 mr-2" />
-                    Edit
-                  </Link>
-                </Menu.Item>
-                <Menu.Item>
-                  <Link
-                    href="#"
-                    className="flex hover:bg-orange-500 hover:text-white text-gray-700 rounded p-2 text-sm group transition-colors items-center"
-                  >
-                    <CreditCardIcon className="h-4 w-4 mr-2" />
-                    Billing
-                  </Link>
-                </Menu.Item>
-                <Menu.Item>
-                  <Link
-                    href="#"
-                    className="flex hover:bg-orange-500 hover:text-white text-gray-700 rounded p-2 text-sm group transition-colors items-center"
-                  >
-                    <Cog8ToothIcon className="h-4 w-4 mr-2" />
-                    Settings
+                    <ArrowRightOnRectangleIcon className="h-4 w-4 mr-2" />
+                    Logout
                   </Link>
                 </Menu.Item>
               </div>

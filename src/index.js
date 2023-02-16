@@ -9,9 +9,12 @@ import { BrowserRouter } from "react-router-dom";
 import axios from "axios";
 
 axios.defaults.baseURL = "http://document_manager.appp/api";
-axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem(
-  "access_token"
-)}`;
+axios.defaults.headers.common["Authorization"] = `Bearer ${
+  JSON.parse(localStorage.getItem("user")).token
+}`;
+
+// console.log(localStorage.getItem("user"));
+console.log();
 
 const container = document.getElementById("root");
 const root = createRoot(container);
