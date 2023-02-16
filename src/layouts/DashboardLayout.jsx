@@ -51,7 +51,7 @@ const DashboardLayout = () => {
           showSideBar && !isMobile ? "pl-56" : ""
         }`}
       >
-        <div className="px-4 md:px-16">
+        <div className="px-4 md:px-16 pt-5">
           <Outlet />
         </div>
       </main>
