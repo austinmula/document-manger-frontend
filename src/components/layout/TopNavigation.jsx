@@ -4,7 +4,6 @@ import {
   ChevronDownIcon,
   ArrowRightOnRectangleIcon,
 } from "@heroicons/react/24/solid";
-// import { BellIcon, CheckIcon } from "@heroicons/react/24/outline";
 import { Menu, Transition } from "@headlessui/react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,7 +15,7 @@ export default function TopNavigation({ showSideBar, setShowSideBar }) {
   const handleLogOut = () => {
     dispatch(logout());
   };
-  //   console.log(user.user.user.user.name);
+
   return (
     <div
       className={`fixed w-full h-16 flex justify-between items-center transition-all duration-[400ms] ${

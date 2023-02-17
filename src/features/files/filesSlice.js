@@ -85,7 +85,8 @@ export const filesSlice = createSlice({
       .addCase(fetchallfiles.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.files = action.payload;
+        state.files = action.payload.data;
+        state.temp_files = action.payload.temp;
       })
       .addCase(fetchallfiles.rejected, (state, action) => {
         state.isLoading = false;

@@ -5,6 +5,7 @@ import PlainLayout from "./layouts/PlainLayout";
 import Dashboard from "./pages/Dashboard";
 import Home from "./pages/Home";
 import LoginPage from "./pages/LoginPage";
+import Users from "./pages/Users";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         >
           <Route element={<Dashboard />} index />
           <Route element={<Home />} path="home" />
+          <Route element={<Users />} path="users" />
         </Route>
       </Routes>
       {/* <DashboardLayout /> */}

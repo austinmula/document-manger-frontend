@@ -14,7 +14,7 @@ export default function AllPermissions() {
 
   useEffect(() => {
     dispatch(fetchallroles());
-    return () => reset();
+    // return () => reset();
   }, []);
 
   const remove = async (id) => {

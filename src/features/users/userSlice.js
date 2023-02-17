@@ -3,7 +3,6 @@ import userService from "./userService";
 
 const initialState = {
   users: [],
-  temp_files: [],
   isLoading: false,
   isSuccess: false,
   isError: false,
@@ -11,12 +10,12 @@ const initialState = {
 };
 
 // Fetch users
-export const fetchallfiles = createAsyncThunk(
-  "users/my_files",
+export const fetchallusers = createAsyncThunk(
+  "users/my_users",
   async (_, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
-      return await userService.fetchallfiles(token);
+      return await userService.fetchallusers(token);
     } catch (error) {
       const message =
         (error.response &&
@@ -31,12 +30,32 @@ export const fetchallfiles = createAsyncThunk(
 );
 
 // Edit a user
-export const editfiledetails = createAsyncThunk(
+export const edituserdetails = createAsyncThunk(
   "users/edit",
-  async (file_data, thunkAPI) => {
+  async (user_data, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
-      return await userService.editfiledetails(token, file_data);
+      return await userService.edituserdetails(token, user_data);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      console.log(message);
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+// Create a user
+export const createnewuser = createAsyncThunk(
+  "users/create",
+  async (user_data, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token;
+      return await userService.createnewuser(token, user_data);
     } catch (error) {
       const message =
         (error.response &&
@@ -51,12 +70,12 @@ export const editfiledetails = createAsyncThunk(
 );
 
 // Delete A user
-export const deletefile = createAsyncThunk(
+export const deleteuser = createAsyncThunk(
   "users/delete",
   async (id, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
-      return await userService.deletefile(token, id);
+      return await userService.deleteuser(token, id);
     } catch (error) {
       const message =
         (error.response &&
@@ -71,7 +90,7 @@ export const deletefile = createAsyncThunk(
   }
 );
 
-export const filesSlice = createSlice({
+export const usersSlice = createSlice({
   name: "users", // this is the name of our slice
   initialState,
   reducers: {
@@ -79,25 +98,39 @@ export const filesSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchallfiles.pending, (state) => {
+      .addCase(fetchallusers.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(fetchallfiles.fulfilled, (state, action) => {
+      .addCase(fetchallusers.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
         state.users = action.payload;
       })
-      .addCase(fetchallfiles.rejected, (state, action) => {
+      .addCase(fetchallusers.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(createnewuser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(createnewuser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        console.log(action.payload);
+        state.users = [...state.users, action.payload];
+      })
+      .addCase(createnewuser.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
       })
 
-      .addCase(editfiledetails.pending, (state) => {
+      .addCase(edituserdetails.pending, (state) => {
         state.isLoading = true;
       })
 
-      .addCase(editfiledetails.fulfilled, (state, action) => {
+      .addCase(edituserdetails.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
         state.users = state.users.map((user) =>
@@ -106,23 +139,23 @@ export const filesSlice = createSlice({
             : user
         );
       })
-      .addCase(editfiledetails.rejected, (state, action) => {
+      .addCase(edituserdetails.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
       })
-      .addCase(deletefile.pending, (state) => {
+      .addCase(deleteuser.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(deletefile.fulfilled, (state, action) => {
+      .addCase(deleteuser.fulfilled, (state, action) => {
         console.log(action.payload);
         state.isLoading = false;
         state.isSuccess = true;
         state.users = state.users.filter(
-          (user) => user.user_id !== action.payload.user_id
+          (user) => user.id !== action.payload.id
         );
       })
-      .addCase(deletefile.rejected, (state, action) => {
+      .addCase(deleteuser.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
@@ -130,5 +163,5 @@ export const filesSlice = createSlice({
   },
 });
 
-export const { reset } = filesSlice.actions;
-export default filesSlice.reducer;
+export const { reset } = usersSlice.actions;
+export default usersSlice.reducer;

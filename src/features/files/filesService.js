@@ -7,9 +7,6 @@ const fetchallfiles = async (token) => {
     headers: { Authorization: `Bearer ${token}` },
   };
   const response = await axios.get("/files", config);
-  //   response.data.sort((a, b) => {
-  //     return new Date(b.created_at) - new Date(a.created_at);
-  //   });
   return response.data;
 };
 

@@ -7,14 +7,33 @@ const fetchallusers = async (token) => {
     headers: { Authorization: `Bearer ${token}` },
   };
   const response = await axios.get("/users", config);
-  //   response.data.sort((a, b) => {
-  //     return new Date(b.created_at) - new Date(a.created_at);
-  //   });
-  return response.data;
+
+  return response.data.data;
+};
+
+const createnewuser = async (token, user_data) => {
+  const config = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
+
+  const response = await axios.post("/users", user_data, config);
+  console.log(response.data.data);
+  return response.data.data;
+};
+
+const deleteuser = async (token, id) => {
+  const config = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
+
+  const response = await axios.delete("/users/" + id, config);
+  return { id };
 };
 
 const userService = {
   fetchallusers,
+  createnewuser,
+  deleteuser,
 };
 
 export default userService;
