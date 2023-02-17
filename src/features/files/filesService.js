@@ -3,7 +3,10 @@ import axios from "axios";
 const API_URL = "";
 
 const fetchallfiles = async (token) => {
-  const response = await axios.get("/files");
+  const config = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
+  const response = await axios.get("/files", config);
   //   response.data.sort((a, b) => {
   //     return new Date(b.created_at) - new Date(a.created_at);
   //   });

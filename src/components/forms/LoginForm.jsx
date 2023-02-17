@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import {
   ExclamationTriangleIcon,
   LockClosedIcon,
 } from "@heroicons/react/24/solid";
 import TextInput from "./components/TextInput";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../features/auth/authSlice";
+import { reset } from "../../features/files/filesSlice";
 
 export default function LoginForm() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [errormessage, setErrormessage] = useState("");
   const { isError, isSuccess, user, message, isLoading } = useSelector(
     (state) => state.auth
   );
@@ -23,19 +23,18 @@ export default function LoginForm() {
   } = useForm();
 
   function loginSubmit(data) {
-    // handle submitting the form
     dispatch(login(data));
   }
 
-  useEffect(() => {
-    if (isError) {
-      setErrormessage(message.error);
-    }
+  const nav = useCallback(() => {
+    navigate("/dashboard");
+  }, [isSuccess, navigate]);
 
-    if (isSuccess) {
-      navigate("/dashboard");
+  useEffect(() => {
+    if (isSuccess || user) {
+      nav();
     }
-  }, [dispatch, isError, isSuccess, message, navigate, user]);
+  }, [isSuccess, nav]);
 
   return (
     <>
@@ -101,7 +100,7 @@ export default function LoginForm() {
                */}
               <ExclamationTriangleIcon className="h-5 w-5 text-red-700 mr-4" />
             </span>
-            {errormessage}
+            {message}
           </div>
         ) : null}
       </form>

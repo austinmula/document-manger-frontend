@@ -9,9 +9,12 @@ import { BrowserRouter } from "react-router-dom";
 import axios from "axios";
 
 axios.defaults.baseURL = "http://document_manager.appp/api";
-axios.defaults.headers.common["Authorization"] = `Bearer ${
-  JSON.parse(localStorage.getItem("user")).token
-}`;
+// const user = JSON.parse(localStorage.getItem("user"));
+
+// if (user)
+//   axios.defaults.headers.common["Authorization"] = `Bearer ${JSON.parse(
+//     localStorage.getItem("token")
+//   )}`;
 
 // console.log(localStorage.getItem("user"));
 console.log();

@@ -7,10 +7,15 @@ import {
 // import { BellIcon, CheckIcon } from "@heroicons/react/24/outline";
 import { Menu, Transition, Popover } from "@headlessui/react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../features/auth/authSlice";
 
 export default function TopNavigation({ showSideBar, setShowSideBar }) {
-  const user = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const handleLogOut = () => {
+    dispatch(logout());
+  };
   //   console.log(user.user.user.user.name);
   return (
     <div
@@ -115,7 +120,7 @@ export default function TopNavigation({ showSideBar, setShowSideBar }) {
                 />
               </div>
               <span className="hidden md:block font-medium text-gray-700">
-                {user.user.user.user.name || "Username"}
+                {user ? user.user.name : null}
               </span>
               <ChevronDownIcon className="ml-2 h-4 w-4 text-gray-700" />
             </Menu.Button>
@@ -133,7 +138,7 @@ export default function TopNavigation({ showSideBar, setShowSideBar }) {
               <div className="p-1">
                 <Menu.Item>
                   <Link
-                    href="#"
+                    onClick={handleLogOut}
                     className="flex hover:bg-emerald-800 hover:text-white text-gray-700 rounded p-2 text-sm group transition-colors items-center"
                   >
                     <ArrowRightOnRectangleIcon className="h-4 w-4 mr-2" />
