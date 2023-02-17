@@ -47,7 +47,7 @@ const DashboardLayout = () => {
         <SideBar showSideBar={showSideBar} />
       </Transition>
       <main
-        className={`pt-16 transition-all duration-[400ms] ${
+        className={`py-16 transition-all duration-[400ms] ${
           showSideBar && !isMobile ? "pl-56" : ""
         }`}
       >

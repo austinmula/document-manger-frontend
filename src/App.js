@@ -3,6 +3,7 @@ import Protected from "./hooks/protected-routes/Protected";
 import DashboardLayout from "./layouts/DashboardLayout";
 import PlainLayout from "./layouts/PlainLayout";
 import Dashboard from "./pages/Dashboard";
+import Home from "./pages/Home";
 import LoginPage from "./pages/LoginPage";
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           path="dashboard"
         >
           <Route element={<Dashboard />} index />
+          <Route element={<Home />} path="home" />
         </Route>
       </Routes>
       {/* <DashboardLayout /> */}
