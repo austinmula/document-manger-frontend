@@ -25,7 +25,9 @@ const DropDown = ({
         }`}
       >
         {data.map((item) => (
-          <option value={item.id}>{item.name}</option>
+          <option value={item.id} key={item.id}>
+            {item.name}
+          </option>
         ))}
       </select>
 

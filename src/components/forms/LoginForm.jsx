@@ -100,7 +100,7 @@ export default function LoginForm() {
                */}
               <ExclamationTriangleIcon className="h-5 w-5 text-red-700 mr-4" />
             </span>
-            {message}
+            {message.error}
           </div>
         ) : null}
       </form>

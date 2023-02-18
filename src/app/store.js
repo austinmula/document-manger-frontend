@@ -6,6 +6,7 @@ import roleReducer from "../features/roles/roleSlice";
 import userReducer from "../features/users/userSlice";
 import permissionReducer from "../features/permissions/permissionSlice";
 import departmentReducer from "../features/departments/departmentSlice";
+import fileCategoryReducer from "../features/filescategories/filesCategorySlice";
 
 export const store = configureStore({
   reducer: {
@@ -16,5 +17,6 @@ export const store = configureStore({
     roles: roleReducer,
     users: userReducer,
     departments: departmentReducer,
+    categories: fileCategoryReducer,
   },
 });

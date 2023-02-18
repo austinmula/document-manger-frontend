@@ -22,7 +22,6 @@ const UsersContainer = () => {
       <div className="mb-6">
         <button
           type="button"
-          // disabled={isLoading}
           onClick={() => setOpen(!open)}
           className="group relative flex  justify-between rounded-md border border-transparent bg-emerald-800 py-2 px-4 text-sm font-medium text-white hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
         >

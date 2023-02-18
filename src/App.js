@@ -1,10 +1,12 @@
 import { Route, Routes } from "react-router-dom";
 import Protected from "./hooks/protected-routes/Protected";
+import ProtectedAdmin from "./hooks/protected-routes/ProtectedAdmin";
 import DashboardLayout from "./layouts/DashboardLayout";
 import PlainLayout from "./layouts/PlainLayout";
 import Dashboard from "./pages/Dashboard";
 import Home from "./pages/Home";
 import LoginPage from "./pages/LoginPage";
+import SingleFile from "./pages/SingleFile";
 import Users from "./pages/Users";
 
 function App() {
@@ -23,9 +25,25 @@ function App() {
           }
           path="dashboard"
         >
-          <Route element={<Dashboard />} index />
+          <Route
+            element={
+              <ProtectedAdmin>
+                <Dashboard />
+              </ProtectedAdmin>
+            }
+            index
+          />
           <Route element={<Home />} path="home" />
-          <Route element={<Users />} path="users" />
+          <Route element={<SingleFile />} path="files/:id" />
+
+          <Route
+            element={
+              <ProtectedAdmin>
+                <Users />
+              </ProtectedAdmin>
+            }
+            path="users"
+          />
         </Route>
       </Routes>
       {/* <DashboardLayout /> */}

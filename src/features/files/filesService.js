@@ -10,7 +10,34 @@ const fetchallfiles = async (token) => {
   return response.data;
 };
 
-const edituserdetails = async (token, user_data) => {
+const fetchfilecategories = async (token) => {
+  const config = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
+  const response = await axios.get("/file-categories", config);
+  console.log(response);
+  return response.data.data;
+};
+
+const createnewfile = async (token, data) => {
+  // axios.defaults.headers.post["Content-Type"] =
+  //   "application/x-www-form-urlencoded";
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "multipart/form-data",
+      // "Content-Type": "application/json;charset=utf-8",
+      // "Access-Control-Allow-Origin": "*",
+    },
+  };
+
+  const response = await axios.post("/files", data, config);
+  console.log(response.data.data);
+  return response.data.data;
+};
+
+const editfiledetails = async (token, file_data) => {
   const config = {
     headers: {
       token: token,
@@ -18,14 +45,14 @@ const edituserdetails = async (token, user_data) => {
   };
 
   const response = await axios.put(
-    API_URL + user_data.user_id,
-    user_data,
+    API_URL + file_data.file_id,
+    file_data,
     config
   );
   console.log(response);
 };
 
-const deleteuser = async (token, id) => {
+const deletefile = async (token, id) => {
   // console.log(token);
   const config = {
     headers: {
@@ -37,10 +64,12 @@ const deleteuser = async (token, id) => {
   return response.data;
 };
 
-const usersService = {
+const filesService = {
   fetchallfiles,
-  edituserdetails,
-  deleteuser,
+  editfiledetails,
+  deletefile,
+  fetchfilecategories,
+  createnewfile,
 };
 
-export default usersService;
+export default filesService;

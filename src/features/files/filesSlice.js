@@ -3,6 +3,7 @@ import filesService from "./filesService";
 
 const initialState = {
   files: [],
+  categories: [],
   temp_files: [],
   isLoading: false,
   isSuccess: false,
@@ -30,13 +31,13 @@ export const fetchallfiles = createAsyncThunk(
   }
 );
 
-// Edit a file
-export const editfiledetails = createAsyncThunk(
+// Create a file
+export const createnewfile = createAsyncThunk(
   "files/edit",
   async (file_data, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
-      return await filesService.editfiledetails(token, file_data);
+      return await filesService.createnewfile(token, file_data);
     } catch (error) {
       const message =
         (error.response &&
@@ -93,21 +94,16 @@ export const filesSlice = createSlice({
         state.isError = true;
         state.message = action.payload;
       })
-
-      .addCase(editfiledetails.pending, (state) => {
+      .addCase(createnewfile.pending, (state) => {
         state.isLoading = true;
       })
 
-      .addCase(editfiledetails.fulfilled, (state, action) => {
+      .addCase(createnewfile.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.files = state.files.map((file) =>
-          file.file_id === action.payload.file_id
-            ? (file = action.payload)
-            : file
-        );
+        state.files = [...state.files, action.payload];
       })
-      .addCase(editfiledetails.rejected, (state, action) => {
+      .addCase(createnewfile.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
