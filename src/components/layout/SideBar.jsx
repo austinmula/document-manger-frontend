@@ -1,4 +1,9 @@
-import { ChartBarIcon, HomeIcon, UserIcon } from "@heroicons/react/24/solid";
+import {
+  ChartBarIcon,
+  FolderIcon,
+  HomeIcon,
+  UserIcon,
+} from "@heroicons/react/24/solid";
 import { forwardRef } from "react";
 import { NavLink } from "react-router-dom";
 import useAdmin from "../../hooks/useAdmin";
@@ -30,6 +35,14 @@ const SideBar = forwardRef(({ showSideBar }, ref) => {
       name: "users",
       path: "/dashboard/users",
       icon: <UserIcon className="h-5 w-5 text-emerald-800" />,
+      admin: true,
+      user: false,
+    },
+    {
+      id: 4,
+      name: "files",
+      path: "/dashboard/files",
+      icon: <FolderIcon className="h-5 w-5 text-emerald-800" />,
       admin: true,
       user: false,
     },

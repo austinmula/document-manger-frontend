@@ -4,6 +4,7 @@ import ProtectedAdmin from "./hooks/protected-routes/ProtectedAdmin";
 import DashboardLayout from "./layouts/DashboardLayout";
 import PlainLayout from "./layouts/PlainLayout";
 import Dashboard from "./pages/Dashboard";
+import Files from "./pages/Files";
 import Home from "./pages/Home";
 import LoginPage from "./pages/LoginPage";
 import SingleFile from "./pages/SingleFile";
@@ -34,6 +35,7 @@ function App() {
             index
           />
           <Route element={<Home />} path="home" />
+          <Route element={<Files />} path="files" />
           <Route element={<SingleFile />} path="files/:id" />
 
           <Route

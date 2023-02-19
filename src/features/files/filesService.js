@@ -10,13 +10,14 @@ const fetchallfiles = async (token) => {
   return response.data;
 };
 
-const fetchfilecategories = async (token) => {
+const fetchonefile = async (token, id) => {
   const config = {
     headers: { Authorization: `Bearer ${token}` },
   };
-  const response = await axios.get("/file-categories", config);
+  console.log(config);
+  const response = await axios.get("/files/" + id, config);
   console.log(response);
-  return response.data.data;
+  return response.data;
 };
 
 const createnewfile = async (token, data) => {
@@ -68,8 +69,8 @@ const filesService = {
   fetchallfiles,
   editfiledetails,
   deletefile,
-  fetchfilecategories,
   createnewfile,
+  fetchonefile,
 };
 
 export default filesService;

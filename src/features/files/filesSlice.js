@@ -5,6 +5,7 @@ const initialState = {
   files: [],
   categories: [],
   temp_files: [],
+  file: {},
   isLoading: false,
   isSuccess: false,
   isError: false,
@@ -72,6 +73,26 @@ export const deletefile = createAsyncThunk(
   }
 );
 
+export const fetchonefile = createAsyncThunk(
+  "files/getone",
+  async (id, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token;
+      return await filesService.fetchonefile(token, id);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      // console.log(message);
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
 export const filesSlice = createSlice({
   name: "files", // this is the name of our slice
   initialState,
@@ -90,6 +111,20 @@ export const filesSlice = createSlice({
         state.temp_files = action.payload.temp;
       })
       .addCase(fetchallfiles.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(fetchonefile.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchonefile.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.file = action.payload.data;
+        // state.temp_files = action.payload.temp;
+      })
+      .addCase(fetchonefile.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

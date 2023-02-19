@@ -15,7 +15,7 @@ const ExpiredNotice = () => {
 const ShowCounter = ({ days, hours, minutes, seconds }) => {
   return (
     <div
-      className={`flex mt-5 items-center text-xs font-mono font-bold gap-1 rounded-xl justify-center ${
+      className={`flex absolute bottom-2 right-2  items-center text-xs font-mono font-bold gap-1 rounded-xl justify-center ${
         days <= 1 ? "bg-red-100 text-red-800" : "bg-emerald-100 text-green-800 "
       }`}
     >
