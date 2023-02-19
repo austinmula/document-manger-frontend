@@ -7,6 +7,7 @@ import userReducer from "../features/users/userSlice";
 import permissionReducer from "../features/permissions/permissionSlice";
 import departmentReducer from "../features/departments/departmentSlice";
 import fileCategoryReducer from "../features/filescategories/filesCategorySlice";
+import requestsReducer from "../features/requests/requestsSlice";
 
 export const store = configureStore({
   reducer: {
@@ -18,5 +19,6 @@ export const store = configureStore({
     users: userReducer,
     departments: departmentReducer,
     categories: fileCategoryReducer,
+    requests: requestsReducer,
   },
 });

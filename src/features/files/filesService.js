@@ -10,6 +10,14 @@ const fetchallfiles = async (token) => {
   return response.data;
 };
 
+const fetchprotectedfiles = async (token) => {
+  const config = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
+  const response = await axios.get("/files", config);
+  return response.data;
+};
+
 const fetchonefile = async (token, id) => {
   const config = {
     headers: { Authorization: `Bearer ${token}` },
@@ -71,6 +79,7 @@ const filesService = {
   deletefile,
   createnewfile,
   fetchonefile,
+  fetchprotectedfiles,
 };
 
 export default filesService;

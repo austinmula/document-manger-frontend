@@ -7,6 +7,7 @@ import Dashboard from "./pages/Dashboard";
 import Files from "./pages/Files";
 import Home from "./pages/Home";
 import LoginPage from "./pages/LoginPage";
+import Requests from "./pages/Requests";
 import SingleFile from "./pages/SingleFile";
 import Users from "./pages/Users";
 
@@ -37,6 +38,7 @@ function App() {
           <Route element={<Home />} path="home" />
           <Route element={<Files />} path="files" />
           <Route element={<SingleFile />} path="files/:id" />
+          <Route element={<Requests />} path="requests" />
 
           <Route
             element={

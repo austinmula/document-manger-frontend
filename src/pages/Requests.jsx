@@ -1,13 +1,12 @@
 import React from "react";
-
-import UsersContainer from "../components/users/UsersContainer";
+import RequestsContainer from "../components/requests/RequestsContainer";
 import ConfirmationModalContextProvider from "../context/ConfirmationModalContext";
 
 export default function Requests() {
   return (
     <div>
       <ConfirmationModalContextProvider>
-        <UsersContainer />
+        <RequestsContainer />
       </ConfirmationModalContextProvider>
     </div>
   );

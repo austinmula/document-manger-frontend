@@ -1,5 +1,6 @@
 import {
   ChartBarIcon,
+  ClipboardDocumentCheckIcon,
   FolderIcon,
   HomeIcon,
   UserIcon,
@@ -43,6 +44,14 @@ const SideBar = forwardRef(({ showSideBar }, ref) => {
       name: "files",
       path: "/dashboard/files",
       icon: <FolderIcon className="h-5 w-5 text-emerald-800" />,
+      admin: true,
+      user: false,
+    },
+    {
+      id: 5,
+      name: "requests",
+      path: "/dashboard/requests",
+      icon: <ClipboardDocumentCheckIcon className="h-5 w-5 text-emerald-800" />,
       admin: true,
       user: false,
     },

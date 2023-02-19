@@ -4,6 +4,7 @@ import { fetchallfiles, reset } from "../features/files/filesSlice";
 import { FileIcon, defaultStyles } from "react-file-icon";
 import { EllipsisVerticalIcon } from "@heroicons/react/24/solid";
 import {
+  ArrowRightOnRectangleIcon,
   CloudArrowUpIcon,
   DocumentArrowDownIcon,
   FolderIcon,
@@ -13,11 +14,13 @@ import CountdownTimer from "../components/timer/CountdownTimer";
 import useAdmin from "../hooks/useAdmin";
 import UploadFile from "../components/files/UploadFile";
 import { Transition } from "@headlessui/react";
+import { useNavigate } from "react-router-dom";
 
 export default function Files() {
   const dispatch = useDispatch();
   const { isAdmin } = useAdmin();
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(fetchallfiles());
@@ -102,6 +105,12 @@ export default function Files() {
                     </div>
                     <div className="mt-4 absolute bottom-2 left-4 w-8 h-8 p-2 rounded-full bg-slate-100 flex items-center justify-center cursor-pointer">
                       <DocumentArrowDownIcon className="w-full h-full text-emerald-800" />
+                    </div>
+                    <div
+                      onClick={() => navigate(`/dashboard/files/${file.id}`)}
+                      className="mt-4 absolute bottom-2 right-4 w-8 h-8 p-2 rounded-full bg-slate-100 flex items-center justify-center cursor-pointer"
+                    >
+                      <ArrowRightOnRectangleIcon className="w-full h-full text-gray-800" />
                     </div>
                   </div>
                 ))}

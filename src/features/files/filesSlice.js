@@ -6,6 +6,7 @@ const initialState = {
   categories: [],
   temp_files: [],
   file: {},
+  noaccess: [],
   isLoading: false,
   isSuccess: false,
   isError: false,
@@ -19,6 +20,26 @@ export const fetchallfiles = createAsyncThunk(
     try {
       const token = thunkAPI.getState().auth.user.token;
       return await filesService.fetchallfiles(token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      console.log(message);
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+// Fetch files
+export const fetchprotectedfiles = createAsyncThunk(
+  "files/protected",
+  async (_, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token;
+      return await filesService.fetchprotectedfiles(token);
     } catch (error) {
       const message =
         (error.response &&
@@ -125,6 +146,19 @@ export const filesSlice = createSlice({
         // state.temp_files = action.payload.temp;
       })
       .addCase(fetchonefile.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(fetchprotectedfiles.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchprotectedfiles.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.noaccess = action.payload.noaccess;
+      })
+      .addCase(fetchprotectedfiles.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

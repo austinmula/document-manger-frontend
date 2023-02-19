@@ -15,24 +15,21 @@ const SingleFile = () => {
     return () => {};
   }, []);
 
-  const link =
-    "http://document_manager.appp/storage/files/YOW6r2IGaqZxgBGDv2Tvzj2PQ5zNhGE04Kp7CbSu.docx";
+  const baselink = "http://document_manager.appp/storage/";
 
   if (isLoading) return <div>Loading ...</div>;
 
   return (
     <div>
-      <p>{file?.name}</p>
-      <p>{`http://document_manager.appp/storage/${file.url}`}</p>
+      <p className="font-bold text-xl pb-6">{file?.name}</p>
       <iframe
-        // src="http://document_manager.appp/storage/files/YOW6r2IGaqZxgBGDv2Tvzj2PQ5zNhGE04Kp7CbSu.docx"
-        src="http://document_manager.appp/storage/files/we1zONb9PJRpGKon2xwK2E2Fws3cSfOErftb0GXH.pdf"
+        src={`${baselink}${file.url}`}
         style={{ width: "90%", height: "1000px" }}
       >
         <p>Your browser does not support iframes.</p>
       </iframe>
       <iframe
-        src={`https://docs.google.com/gview?url=${link}&embedded=true`}
+        src={`https://docs.google.com/gview?url=${baselink}${file.url}&embedded=true`}
       ></iframe>
     </div>
   );

@@ -37,7 +37,10 @@ function Profile() {
             >
               <Disclosure.Panel className="flex items-center justify-center flex-wrap gap-2 py-3">
                 {user.user.role?.permissions.map((item) => (
-                  <div className="bg-orange-200 text-orange-700 rounded-lg text-xs gap-2 whitespace-nowrap px-3">
+                  <div
+                    key={item.id}
+                    className="bg-orange-200 text-orange-700 rounded-lg text-xs gap-2 whitespace-nowrap px-3"
+                  >
                     {item.slug}
                   </div>
                 ))}
