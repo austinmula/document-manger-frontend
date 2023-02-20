@@ -1,12 +1,11 @@
 import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/outline";
-import { TrashIcon } from "@heroicons/react/24/solid";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchrequeststome,
   reset,
 } from "../../features/requests/requestsSlice";
-import { DeleteButton } from "../forms/components/DeleteButton";
+import ApproveRequest from "./ApproveRequest";
 
 import Modal from "./Modal";
 
@@ -91,10 +90,19 @@ const RequestsToMe = () => {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                     <div
-                      // onClick={() => remove(item.id)}
+                      onClick={() => setOpen(true)}
                       className="rounded-full shrink-0 bg-gray-100 h-8 w-8 flex items-center justify-center cursor-pointer"
                     >
                       <CheckCircleIcon className="h-5 w-5 text-green-700" />
+                      {open ? (
+                        <ApproveRequest
+                          open={open}
+                          setOpen={setOpen}
+                          file_id={request.file.id}
+                          user_id={request.user.id}
+                          request_id={request.id}
+                        />
+                      ) : null}
                     </div>
 
                     <div

@@ -1,7 +1,11 @@
 import { PlusIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchallusers, reset } from "../../features/users/userSlice";
+import {
+  deleteuser,
+  fetchallusers,
+  reset,
+} from "../../features/users/userSlice";
 import { DeleteButton } from "../forms/components/DeleteButton";
 import NewUserForm from "../forms/NewUserForm";
 
@@ -16,6 +20,10 @@ const UsersContainer = () => {
 
     return () => reset();
   }, []);
+
+  const remove = (id) => {
+    deleteuser(id);
+  };
 
   return (
     <>
@@ -32,7 +40,7 @@ const UsersContainer = () => {
         </button>
       </div>
 
-      {open && <NewUserForm />}
+      {open && <NewUserForm open={open} setOpen={setOpen} />}
       <div className="shadow-sm bg-white mt-5">
         <table className="table-auto min-w-full">
           <thead className="border-b">
@@ -95,12 +103,12 @@ const UsersContainer = () => {
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                     {user.role?.name}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                  <td className="px-6 py-4 text-sm font-medium text-gray-900">
                     {user.departments?.name}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                     <DeleteButton
-                      // onClick={() => remove(item.id)}
+                      onClick={() => remove(user.id)}
                       className="rounded-full shrink-0 bg-gray-100 h-8 w-8 flex items-center justify-center cursor-pointer"
                     >
                       <TrashIcon className="h-5 w-5 text-red-700" />

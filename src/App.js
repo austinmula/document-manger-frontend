@@ -6,6 +6,7 @@ import PlainLayout from "./layouts/PlainLayout";
 import Dashboard from "./pages/Dashboard";
 import Files from "./pages/Files";
 import Home from "./pages/Home";
+import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
 import Requests from "./pages/Requests";
 import SingleFile from "./pages/SingleFile";
@@ -15,6 +16,7 @@ function App() {
   return (
     <div>
       <Routes>
+        <Route path="" element={<LandingPage />} />
         <Route element={<PlainLayout />}>
           <Route element={<LoginPage />} path="login" />
         </Route>

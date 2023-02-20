@@ -2,7 +2,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment } from "react";
 import RequestAccess from "../forms/RequestAccess";
 
-function Modal({ open, setOpen, title }) {
+function Modal({ open, setOpen }) {
   return (
     <>
       <Transition appear show={open} as={Fragment}>

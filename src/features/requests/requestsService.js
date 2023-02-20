@@ -37,23 +37,21 @@ const createnewrequest = async (token, data) => {
   };
 
   const response = await axios.post("/requests", data, config);
-  // console.log(response.data.data);
   return response.data.data;
 };
 
 const editrequestdetails = async (token, request_data) => {
   const config = {
-    headers: {
-      token: token,
-    },
+    headers: { Authorization: `Bearer ${token}` },
   };
 
-  const response = await axios.put(
-    API_URL + request_data.request_id,
+  const response = await axios.post(
+    "/temp-requests-files",
     request_data,
     config
   );
-  console.log(response);
+
+  return response.data.data;
 };
 
 const deleterequest = async (token, id) => {

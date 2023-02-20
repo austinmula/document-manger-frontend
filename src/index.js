@@ -8,7 +8,8 @@ import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import axios from "axios";
 
-axios.defaults.baseURL = "http://document_manager.appp/api";
+axios.defaults.baseURL = "http://167.99.233.23/api";
+// axios.defaults.baseURL = "http://document_manager.appp/api";
 // const user = JSON.parse(localStorage.getItem("user"));
 
 // if (user)

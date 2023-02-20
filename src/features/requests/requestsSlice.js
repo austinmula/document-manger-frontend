@@ -50,6 +50,26 @@ export const createnewrequest = createAsyncThunk(
   }
 );
 
+// Edit a request(approve)
+export const editrequestdetails = createAsyncThunk(
+  "requests/edit",
+  async (request_data, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token;
+      return await requestsService.editrequestdetails(token, request_data);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      console.log(message);
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
 // Delete A request
 export const deleterequest = createAsyncThunk(
   "requests/delete",
@@ -137,6 +157,20 @@ export const requestsSlice = createSlice({
         state.requests = [...state.requests, action.payload];
       })
       .addCase(createnewrequest.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(editrequestdetails.pending, (state) => {
+        state.isLoading = true;
+      })
+
+      .addCase(editrequestdetails.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.requests = [...state.requests, action.payload];
+      })
+      .addCase(editrequestdetails.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
